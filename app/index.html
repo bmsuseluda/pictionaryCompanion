@@ -1,14 +1,24 @@
 <!doctype html>
-<html lang="en" ng-app>
+<html lang="en" ng-app="pictionary-companion">
   <head>
     <meta charset="utf-8">
     <title>pictionary companion</title>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <script src="bower_components/angular/angular.js"></script>
   </head>
   <body>
+	<script src="bower_components/angular/angular.js"></script>
+    <script src="word.js"></script>
 
-    Pictionary companion app
-
+      <div>
+        <div><b>Pictionary companion app</b></div>
+          
+          <div ng-controller="wordsControl">
+              <div>
+                <button class="btn btn-default btn-sm" id="getNewWord" ng-click="words.getNewWord()">new word</button>
+              </div>
+              
+              <div>{{word.word}}</div>
+          </div>
+      </div>
   </body>
 </html>

@@ -1,0 +1,6 @@
+[
+    {"word": "Hund", "up": 2, "down": 0, "category": "animals"},
+    {"word": "Katze", "up": 3, "down": 0, "category": "animals"},
+    {"word": "Schaf", "up": 4, "down": 0, "category": "animals"},
+    {"word": "Superman", "up": 2, "down": 0, "category": "comic"}
+]
