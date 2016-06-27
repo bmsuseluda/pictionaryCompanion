@@ -9,7 +9,7 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <button class="btn btn-primary btn-sm" id="getNewWord" ng-click="pictionary.getNewWord()">next word</button>
+                <button class="btn btn-primary btn-sm" id="getNewWord" ng-click="$ctrl.getNewWord($ctrl)">next word</button>
                 <button class="btn btn-success btn-sm" id="success" ng-click="pictionary.getNewWord()">success</button>
                 <button class="btn btn-danger btn-sm" id="failed" ng-click="pictionary.getNewWord()">failed</button>
             </div>
@@ -22,11 +22,13 @@
 
         <table class="table">
             <tr>
+                <th>id</th>
                 <th>Words played</th>
                 <th>category</th>
             </tr>
 
             <tr ng-repeat="wordPlayed in $ctrl.wordsPlayed">
+                <td>{{wordPlayed.id}}</td>
                 <td>{{wordPlayed.word}}</td>
                 <td>{{wordPlayed.category}}</td>
             </tr>
@@ -35,5 +37,19 @@
         <div class="text-left">
             unplayed words <span class="badge">{{$ctrl.wordsUnplayed.length}}</span>
         </div>
+
+        <table class="table">
+            <tr>
+                <th>id</th>
+                <th>Words unplayed</th>
+                <th>category</th>
+            </tr>
+
+            <tr ng-repeat="wordUnplayed in $ctrl.wordsUnplayed">
+                <td>{{wordUnplayed.id}}</td>
+                <td>{{wordUnplayed.word}}</td>
+                <td>{{wordUnplayed.category}}</td>
+            </tr>
+        </table>
     </div>
 </div>

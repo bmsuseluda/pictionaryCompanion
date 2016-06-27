@@ -25,9 +25,20 @@ component('wordRound', {
 
             controlScope.wordsPlayed = wordsPlayed;
             controlScope.word = actualWord;
-            wordsUnplayed.pop(actualWord);
+            wordsUnplayed.splice(wordsUnplayed.indexOf(actualWord), 1);
             controlScope.wordsUnplayed = wordsUnplayed;
         });
+
+        this.getNewWord = function (controlScope) {
+            var actualWord = controlScope.word;
+            controlScope.wordsPlayed.push(actualWord);
+
+            var wordsUnplayed = controlScope.wordsUnplayed;
+            actualWord = wordsUnplayed[0];
+            controlScope.word = actualWord;
+            wordsUnplayed.splice(wordsUnplayed.indexOf(actualWord), 1);
+            controlScope.wordsUnplayed = wordsUnplayed;
+        };
     }
 });
 
@@ -70,8 +81,4 @@ pictionary.isWordPlayed = function (id, wordsPlayed) {
             return true;
         }
     }
-};
-
-pictionary.getNewWord = function () {
-    $scope.word = pictionary.wordsUnplayed[0];
 };
