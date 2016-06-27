@@ -9,8 +9,8 @@ angular.
                  * Words Controller
                  */
                 controller: function WordRoundController($http, $scope) {
-                    var words = pictionary.readWordsFromJSON();
-                    var wordsPlayed = pictionary.initWordsPlayed(words);
+                    var words = pictionary.readWordsFromJSON($http);
+                    var wordsPlayed = pictionary.initWordsPlayed(words, $http);
                     var wordsUnplayed = pictionary.initWordsUnplayed(words, wordsPlayed);
                     var actualWord = wordsUnplayed[0];
                     
@@ -23,16 +23,17 @@ angular.
 
 var pictionary = [];
 
-pictionary.readWordsPlayedIDsFromJSON = function() {
-    /**$http.get('user-wordsPlayed.json').then(function (wordsPlayedJSON) {
-        pictionary.wordsPlayed = wordsPlayedJSON.data;
-    });**/
-    return [
-        {"id": 1}
-    ];
+pictionary.readWordsPlayedIDsFromJSON = function($http) {
+    /**var wordsPlayed = null;
+    $http.get('userData/user-wordsPlayed.json').then(function (wordsPlayedJSON) {
+        wordsPlayed = wordsPlayedJSON.data;
+    });
+    return wordsPlayed;**/
+    
+    return [{"id": 1}]
 };
 
-pictionary.readWordsFromJSON = function() {
+pictionary.readWordsFromJSON = function($http) {
     /**$http.get('words-german.json').then(function (wordsJSON) {
         pictionary.words = wordsJSON.data;
     });**/
@@ -44,14 +45,16 @@ pictionary.readWordsFromJSON = function() {
     ]  
 };
 
-pictionary.initWordsPlayed = function (words) {
-    var wordsPlayedIDs = pictionary.readWordsPlayedIDsFromJSON();
+pictionary.initWordsPlayed = function (words, $http) {
+    var wordsPlayedIDs = pictionary.readWordsPlayedIDsFromJSON($http);
     var wordsPlayed = [];
 
-    for (var i = 0; i < words.length; i++) {
-        var word = words[i];
-        if (pictionary.isWordPlayed(word.id, wordsPlayedIDs)) {
-            wordsPlayed.push(word);
+    if (wordsPlayedIDs != null && wordsPlayedIDs.length > 0) {
+        for (var i = 0; i < words.length; i++) {
+            var word = words[i];
+            if (pictionary.isWordPlayed(word.id, wordsPlayedIDs)) {
+                wordsPlayed.push(word);
+            }
         }
     }
     return wordsPlayed;
@@ -60,12 +63,17 @@ pictionary.initWordsPlayed = function (words) {
 pictionary.initWordsUnplayed = function (words, wordsPlayed) {
     var wordsUnplayed = [];
 
-    for (var i = 0; i < words.length; i++) {
-        var word = words[i];
-        if (!pictionary.isWordPlayed(word.id, wordsPlayed)) {
-            wordsUnplayed.push(word);
+    if (wordsPlayed != null && wordsPlayed.length > 0) {
+        for (var i = 0; i < words.length; i++) {
+            var word = words[i];
+            if (!pictionary.isWordPlayed(word.id, wordsPlayed)) {
+                wordsUnplayed.push(word);
+            }
         }
+    } else {
+        wordsUnplayed = words;
     }
+    
     return wordsUnplayed;
 };
     
