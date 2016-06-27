@@ -8,80 +8,32 @@ component('wordRound', {
     /**
      * Words Controller
      */
-    controller: function WordRoundController($http, $scope) {
-        var words = pictionary.readWordsFromJSON($http);
-        var wordsPlayed = pictionary.initWordsPlayed(words, $http);
-        var wordsUnplayed = pictionary.initWordsUnplayed(words, wordsPlayed);
-        var actualWord = wordsUnplayed[0];
+    controller: function WordRoundController($http, $q) {
+        var controlScope = this;
 
-        this.wordsPlayed = wordsPlayed;
-        this.word = actualWord;
-        wordsUnplayed.pop(actualWord);
-        this.wordsUnplayed = wordsUnplayed;
+        var promises = [];
+        promises.push($http.get('wordsData/words-german.json'));
+        promises.push($http.get('userData/user-wordsPlayed.json'));
+
+        $q.all(promises).then(function (results) {
+            var words = results[0].data;
+            var wordsPlayedIDs = results[1].data;
+
+            var wordsPlayed = pictionary.initWordsPlayed(words, wordsPlayedIDs);
+            var wordsUnplayed = pictionary.initWordsUnplayed(words, wordsPlayed);
+            var actualWord = wordsUnplayed[0];
+
+            controlScope.wordsPlayed = wordsPlayed;
+            controlScope.word = actualWord;
+            wordsUnplayed.pop(actualWord);
+            controlScope.wordsUnplayed = wordsUnplayed;
+        });
     }
 });
 
 var pictionary = [];
 
-pictionary.readWordsPlayedIDsFromJSON = function ($http) {
-    /**var wordsPlayed = null;
-    $http.get('userData/user-wordsPlayed.json').then(function (wordsPlayedJSON) {
-        wordsPlayed = wordsPlayedJSON.data;
-    });
-    return wordsPlayed;**/
-
-    return [{
-        "id": 1
-    }]
-};
-
-pictionary.readWordsFromJSON = function ($http) {
-    /**$http.get('words-german.json').then(function (wordsJSON) {
-        pictionary.words = wordsJSON.data;
-    });**/
-    return [
-        {
-            "id": 1
-            , "word": "Hund"
-            , "up": 2
-            , "down": 0
-            , "category": "animals"
-        }
-
-
-        
-        , {
-            "id": 2
-            , "word": "Katze"
-            , "up": 3
-            , "down": 0
-            , "category": "animals"
-        }
-
-
-        
-        , {
-            "id": 3
-            , "word": "Schaf"
-            , "up": 4
-            , "down": 0
-            , "category": "animals"
-        }
-
-
-        
-        , {
-            "id": 4
-            , "word": "Superman"
-            , "up": 2
-            , "down": 0
-            , "category": "comic"
-        }
-    ]
-};
-
-pictionary.initWordsPlayed = function (words, $http) {
-    var wordsPlayedIDs = pictionary.readWordsPlayedIDsFromJSON($http);
+pictionary.initWordsPlayed = function (words, wordsPlayedIDs) {
     var wordsPlayed = [];
 
     if (wordsPlayedIDs != null && wordsPlayedIDs.length > 0) {
