@@ -1,0 +1,23 @@
+<div>
+  <div>
+    <!--<button class="btn btn-default btn-sm" id="getNewWord" ng-click="pictionary.getNewWord()">new word</button>-->
+  </div>
+
+  <div>{{$ctrl.word.word}}</div><br><br>
+
+  <p><b>statistics:</b></p>
+  <div><p>total number of unplayed words: {{$ctrl.wordsUnplayed.length}}</p></div>
+  <div>words played:
+      <table>
+        <tr>
+          <th>Word</th>
+          <th>category</th>
+          </tr>
+
+          <tr ng-repeat="wordPlayed in $ctrl.wordsPlayed">
+            <td>{{wordPlayed.word}}</td>
+              <td>{{wordPlayed.category}}</td>
+          </tr>
+      </table>
+  </div>
+</div>
