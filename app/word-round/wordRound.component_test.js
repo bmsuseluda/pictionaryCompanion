@@ -7,7 +7,7 @@ describe('wordRound', function () {
     describe('WordRoundController', function () {
         var $httpBackend, ctrl;
 
-        beforeEach(inject(function ($componentController, _$httpBackend_) {
+        beforeEach(inject(function ($componentController, _$httpBackend_, _$q_) {
             $httpBackend = _$httpBackend_;
             $httpBackend.expectGET('wordsData/words-german.json').respond([{
                 id: 1
@@ -21,6 +21,9 @@ describe('wordRound', function () {
             $httpBackend.expectGET('userData/user-wordsPlayed.json').respond([{
                 id: 1
             }]);
+            
+            $q = _$q_;
+            
 
             ctrl = $componentController('wordRound');
         }));
