@@ -2,22 +2,59 @@
 
 var pictionary = angular.module('pictionary-companion', []);
 
-var words = {};
+pictionary.wordsPlayed = [
+    {"id": 1}
+]
+pictionary.wordsUnplayed = [];
+pictionary.words = [
+    {"id": 1, "word": "Hund", "up": 2, "down": 0, "category": "animals"},
+    {"id": 2, "word": "Katze", "up": 3, "down": 0, "category": "animals"},
+    {"id": 3, "word": "Schaf", "up": 4, "down": 0, "category": "animals"},
+    {"id": 4, "word": "Superman", "up": 2, "down": 0, "category": "comic"}
+];
 
 /**
  * Words Controller
  */
 pictionary.controller('wordsControl', function ($scope, $http) {
-    $http.get('words-german.json').then(function (words) {
-        initWords($scope, words);
-    });
+    pictionary.readJSONFiles($http);
+    pictionary.initWords($scope, pictionary.words, pictionary.wordsPlayed);
 });
 
-var initWords = function ($scope, words) {
-    $scope.words = words.data;
-    $scope.word = words.data[0];
-};
+pictionary.readJSONFiles = function (http) {
+     /**$http.get('words-german.json').then(function (wordsJSON) {
+        pictionary.words = wordsJSON.data;
+    });
+    $http.get('user-wordsPlayed.json').then(function (wordsPlayedJSON) {
+        pictionary.wordsPlayed = wordsPlayedJSON.data;
+    });**/
+}
 
-var getNewWord = function () {
-    return 1;
+pictionary.initWords = function ($scope, words, wordsPlayed) {
+
+    for (var i = 0; i < words.length; i++) {
+        var word = words[i];
+        if (!pictionary.isWordPlayed(word.id, wordsPlayed)) {
+            pictionary.wordsUnplayed.push(word);
+        }    
+    }
+    
+    $scope.words = pictionary.wordsUnplayed;
+    var word = pictionary.wordsUnplayed[0];
+    $scope.word = word;
+    
+    //pictionary.wordsPlayed.push(word.id);
+    //pictionary.wordsUnplayed.pop(word);
+};
+    
+pictionary.isWordPlayed = function (id, wordsPlayed) {
+    for (var i = 0; i < wordsPlayed.length; i++) {
+        if (id == wordsPlayed[i].id) {
+            return true;
+        }
+    }
+}
+
+pictionary.getNewWord = function () {
+    $scope.word = pictionary.wordsUnplayed[0];
 };
