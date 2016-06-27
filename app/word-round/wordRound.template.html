@@ -1,33 +1,33 @@
 <div class="row">
     <div class="col-sm-8">
-        
+
         <div class="row">
             <div class="col-sm-12">Draw: {{$ctrl.word.word}}</div>
         </div>
 
-      <div class="row">
-        <div class="col-sm-12">
-            <button class="btn btn-default btn-sm" id="getNewWord" ng-click="pictionary.getNewWord()">new word</button>
-          </div>
-      </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <button class="btn btn-default btn-sm" id="getNewWord" ng-click="pictionary.getNewWord()">new word</button>
+            </div>
+        </div>
         <br>
     </div>
-    
+
     <div class="col-sm-4">
         <h3>statistics</h3>
-        
-          <table class="table">
-            <tr>
-              <th>Words played</th>
-              <th>category</th>
-              </tr>
 
-              <tr ng-repeat="wordPlayed in $ctrl.wordsPlayed">
+        <table class="table">
+            <tr>
+                <th>Words played</th>
+                <th>category</th>
+            </tr>
+
+            <tr ng-repeat="wordPlayed in $ctrl.wordsPlayed">
                 <td>{{wordPlayed.word}}</td>
-                  <td>{{wordPlayed.category}}</td>
-              </tr>
-          </table>
-        
+                <td>{{wordPlayed.category}}</td>
+            </tr>
+        </table>
+
         <div>total number of unplayed words: {{$ctrl.wordsUnplayed.length}}</div>
     </div>
 </div>

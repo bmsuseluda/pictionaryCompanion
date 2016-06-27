@@ -1,48 +1,83 @@
 'use strict';
 
 angular.
-    module('wordRound').
-        component('wordRound', {
-            templateUrl: 'word-round/wordRound.template.html',
-        
-                /**
-                 * Words Controller
-                 */
-                controller: function WordRoundController($http, $scope) {
-                    var words = pictionary.readWordsFromJSON($http);
-                    var wordsPlayed = pictionary.initWordsPlayed(words, $http);
-                    var wordsUnplayed = pictionary.initWordsUnplayed(words, wordsPlayed);
-                    var actualWord = wordsUnplayed[0];
-                    
-                    this.wordsPlayed = wordsPlayed;
-                    this.word = actualWord;
-                    wordsUnplayed.pop(actualWord);
-                    this.wordsUnplayed = wordsUnplayed;
-                }
+module('wordRound').
+component('wordRound', {
+    templateUrl: 'word-round/wordRound.template.html',
+
+    /**
+     * Words Controller
+     */
+    controller: function WordRoundController($http, $scope) {
+        var words = pictionary.readWordsFromJSON($http);
+        var wordsPlayed = pictionary.initWordsPlayed(words, $http);
+        var wordsUnplayed = pictionary.initWordsUnplayed(words, wordsPlayed);
+        var actualWord = wordsUnplayed[0];
+
+        this.wordsPlayed = wordsPlayed;
+        this.word = actualWord;
+        wordsUnplayed.pop(actualWord);
+        this.wordsUnplayed = wordsUnplayed;
+    }
 });
 
 var pictionary = [];
 
-pictionary.readWordsPlayedIDsFromJSON = function($http) {
+pictionary.readWordsPlayedIDsFromJSON = function ($http) {
     /**var wordsPlayed = null;
     $http.get('userData/user-wordsPlayed.json').then(function (wordsPlayedJSON) {
         wordsPlayed = wordsPlayedJSON.data;
     });
     return wordsPlayed;**/
-    
-    return [{"id": 1}]
+
+    return [{
+        "id": 1
+    }]
 };
 
-pictionary.readWordsFromJSON = function($http) {
+pictionary.readWordsFromJSON = function ($http) {
     /**$http.get('words-german.json').then(function (wordsJSON) {
         pictionary.words = wordsJSON.data;
     });**/
-  return [
-        {"id": 1, "word": "Hund", "up": 2, "down": 0, "category": "animals"},
-        {"id": 2, "word": "Katze", "up": 3, "down": 0, "category": "animals"},
-        {"id": 3, "word": "Schaf", "up": 4, "down": 0, "category": "animals"},
-        {"id": 4, "word": "Superman", "up": 2, "down": 0, "category": "comic"}
-    ]  
+    return [
+        {
+            "id": 1
+            , "word": "Hund"
+            , "up": 2
+            , "down": 0
+            , "category": "animals"
+        }
+
+
+        
+        , {
+            "id": 2
+            , "word": "Katze"
+            , "up": 3
+            , "down": 0
+            , "category": "animals"
+        }
+
+
+        
+        , {
+            "id": 3
+            , "word": "Schaf"
+            , "up": 4
+            , "down": 0
+            , "category": "animals"
+        }
+
+
+        
+        , {
+            "id": 4
+            , "word": "Superman"
+            , "up": 2
+            , "down": 0
+            , "category": "comic"
+        }
+    ]
 };
 
 pictionary.initWordsPlayed = function (words, $http) {
@@ -73,10 +108,10 @@ pictionary.initWordsUnplayed = function (words, wordsPlayed) {
     } else {
         wordsUnplayed = words;
     }
-    
+
     return wordsUnplayed;
 };
-    
+
 pictionary.isWordPlayed = function (id, wordsPlayed) {
     for (var i = 0; i < wordsPlayed.length; i++) {
         if (id == wordsPlayed[i].id) {
