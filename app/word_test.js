@@ -6,7 +6,8 @@ describe('wordsControl', function() {
     var scope = {};
     var ctrl = $controller('wordsControl', {$scope: scope});
 
-    expect(scope.words.length).toBe(3);
+    expect(scope.wordsUnplayed.length).toBe(2);
     expect(scope.word.word).toBe('Katze');
+    expect(scope.wordsPlayed.length).toBe(1);
   }));
 });

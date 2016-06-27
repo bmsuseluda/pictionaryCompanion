@@ -17,7 +17,17 @@
                 <button class="btn btn-default btn-sm" id="getNewWord" ng-click="pictionary.getNewWord()">new word</button>
               </div>
               
-              <div>{{word.word}}</div>
+              <div>{{word.word}}</div><br><br>
+              
+              <p><b>statistics:</b></p>
+              <div><p>total number of unplayed words: {{wordsUnplayed.length}}</p></div>
+              <div>words played:
+                  <ul>
+                    <li ng-repeat="wordPlayed in wordsPlayed">
+                      <span>{{wordPlayed.word}}</span>
+                    </li>
+                  </ul>
+              </div>
           </div>
       </div>
   </body>

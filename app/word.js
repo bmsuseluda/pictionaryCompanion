@@ -3,7 +3,7 @@
 var pictionary = angular.module('pictionary-companion', []);
 
 pictionary.wordsPlayed = [
-    {"id": 1}
+    {"id": 1},
 ]
 pictionary.wordsUnplayed = [];
 pictionary.words = [
@@ -31,20 +31,26 @@ pictionary.readJSONFiles = function (http) {
 }
 
 pictionary.initWords = function ($scope, words, wordsPlayed) {
+    
+    var wordsPlayedFull = [];
 
     for (var i = 0; i < words.length; i++) {
         var word = words[i];
-        if (!pictionary.isWordPlayed(word.id, wordsPlayed)) {
+        if (pictionary.isWordPlayed(word.id, wordsPlayed)) {
+            wordsPlayedFull.push(word);
+        } else {
             pictionary.wordsUnplayed.push(word);
-        }    
+        }
     }
     
-    $scope.words = pictionary.wordsUnplayed;
     var word = pictionary.wordsUnplayed[0];
     $scope.word = word;
     
+    pictionary.wordsUnplayed.pop(word);
+    $scope.wordsUnplayed = pictionary.wordsUnplayed;
+    $scope.wordsPlayed = wordsPlayedFull;
+     
     //pictionary.wordsPlayed.push(word.id);
-    //pictionary.wordsUnplayed.pop(word);
 };
     
 pictionary.isWordPlayed = function (id, wordsPlayed) {
