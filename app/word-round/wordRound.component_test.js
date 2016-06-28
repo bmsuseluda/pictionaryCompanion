@@ -5,11 +5,11 @@ describe('wordRound', function () {
     beforeEach(module('wordRound'));
 
     describe('WordRoundController', function () {
-        var $httpBackend, ctrl;
+        var ctrl;
 
         beforeEach(inject(function ($componentController, _$httpBackend_, _$q_) {
-            $httpBackend = _$httpBackend_;
-            $httpBackend.expectGET('wordsData/words-german.json').respond([{
+
+            var words = [{
                 id: 1
                 , word: "Katze"
                 , category: "animals"
@@ -17,22 +17,35 @@ describe('wordRound', function () {
                 id: 2
                 , word: "Hund"
                 , category: "animals"
-            }]);
-            $httpBackend.expectGET('userData/user-wordsPlayed.json').respond([{
+            }, {
+                id: 3
+                , word: "Superman"
+                , category: "comics"
+            }];
+
+            var wordsPlayedIDs = [{
                 id: 1
-            }]);
-            
-            $q = _$q_;
-            
+            }];
 
             ctrl = $componentController('wordRound');
+            spyOn(ctrl, 'readJSONFilesAndStartInit').and.stub();
+
+            ctrl.initControlScope(ctrl, words, wordsPlayedIDs);
         }));
 
-        it('should create a words model with 3 words and the first selected', function () {
+        it('should be just 1 unplayed word', function () {
 
             expect(ctrl.wordsUnplayed.length).toBe(1);
+        });
+
+        it('should be the word hund', function () {
+
             expect(ctrl.word.word).toBe('Hund');
-            expect(ctrl.wordsPlayed.length).toBe(1);
+        });
+
+        it('should be 2 played words', function () {
+
+            expect(ctrl.wordsPlayed.length).toBe(2);
         });
     });
 });
