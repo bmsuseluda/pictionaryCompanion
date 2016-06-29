@@ -79,7 +79,7 @@ angular.module('wordRound').component('wordRound', {
         this.initWordsPlayed = function (words, wordsPlayedIDs) {
             var wordsPlayed = [];
 
-            if (wordsPlayedIDs != null && wordsPlayedIDs.length > 0) {
+            if (wordsPlayedIDs !== null && wordsPlayedIDs.length > 0) {
                 for (var i = 0; i < words.length; i++) {
                     var word = words[i];
                     if (this.isWordPlayed(word.id, wordsPlayedIDs)) {
@@ -100,7 +100,7 @@ angular.module('wordRound').component('wordRound', {
         this.initWordsUnplayed = function (words, wordsPlayed) {
             var wordsUnplayed = [];
 
-            if (wordsPlayed != null && wordsPlayed.length > 0) {
+            if (wordsPlayed !== null && wordsPlayed.length > 0) {
                 for (var i = 0; i < words.length; i++) {
                     var word = words[i];
                     if (!this.isWordPlayed(word.id, wordsPlayed)) {
@@ -123,7 +123,7 @@ angular.module('wordRound').component('wordRound', {
          */
         this.isWordPlayed = function (id, wordsPlayed) {
             for (var i = 0; i < wordsPlayed.length; i++) {
-                if (id == wordsPlayed[i].id) {
+                if (id === wordsPlayed[i].id) {
                     return true;
                 }
             }
