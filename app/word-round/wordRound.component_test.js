@@ -34,17 +34,14 @@ describe('wordRound', function () {
         }));
 
         it('should be just 1 unplayed word', function () {
-
             expect(ctrl.wordsUnplayed.length).toBe(1);
         });
 
         it('should be the word hund', function () {
-
             expect(ctrl.word.word).toBe('Hund');
         });
 
         it('should be 2 played words', function () {
-
             expect(ctrl.wordsPlayed.length).toBe(2);
         });
     });
