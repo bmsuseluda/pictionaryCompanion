@@ -6,11 +6,21 @@ component('wordRound', {
     templateUrl: 'word-round/wordRound.template.html',
 
     /**
-     * Words Controller
+     * Controller for a round in a pictionary game.
+     *
+     * @param $http
+     * @param $q
      */
     controller: function WordRoundController($http, $q) {
         var controlScope = this;
 
+        /**
+         * Reads the word-list and user-data from JSON and starts initialisation of the controllerScope.
+         *
+         * @param $http
+         * @param $q
+         * @param controlScope
+         */
         this.readJSONFilesAndStartInit = function ($http, $q, controlScope) {
             var promises = [];
             promises.push($http.get('wordsData/words-german.json'));
@@ -26,6 +36,13 @@ component('wordRound', {
 
         this.readJSONFilesAndStartInit($http, $q, controlScope);
 
+        /**
+         * Initialize the controllerScope with unplayed and played words.
+         *
+         * @param controlScope
+         * @param words
+         * @param wordsPlayedIDs
+         */
         this.initControlScope = function (controlScope, words, wordsPlayedIDs) {
             var wordsPlayed = controlScope.initWordsPlayed(words, wordsPlayedIDs);
             controlScope.wordsPlayed = wordsPlayed;
@@ -34,6 +51,11 @@ component('wordRound', {
             controlScope.getNewWord(controlScope);
         };
 
+        /**
+         * Sets new word from unplayed words in controllerScope. Updates the played and unplayed words.
+         *
+         * @param controlScope
+         */
         this.getNewWord = function (controlScope) {
 
             var wordsUnplayed = controlScope.wordsUnplayed;
@@ -49,6 +71,13 @@ component('wordRound', {
             }
         };
 
+        /**
+         * Initialize played words.
+         *
+         * @param words
+         * @param wordsPlayedIDs
+         * @returns {Array} played words
+         */
         this.initWordsPlayed = function (words, wordsPlayedIDs) {
             var wordsPlayed = [];
 
@@ -63,6 +92,13 @@ component('wordRound', {
             return wordsPlayed;
         };
 
+        /**
+         * Initialize unplayed words.
+         *
+         * @param words
+         * @param wordsPlayed
+         * @returns {Array} unplayed words
+         */
         this.initWordsUnplayed = function (words, wordsPlayed) {
             var wordsUnplayed = [];
 
@@ -80,6 +116,13 @@ component('wordRound', {
             return wordsUnplayed;
         };
 
+        /**
+         * Proves if the word was all ready played.
+         *
+         * @param id wordID to prove
+         * @param wordsPlayed
+         * @returns {boolean}
+         */
         this.isWordPlayed = function (id, wordsPlayed) {
             for (var i = 0; i < wordsPlayed.length; i++) {
                 if (id == wordsPlayed[i].id) {
