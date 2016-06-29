@@ -1,33 +1,30 @@
 [
-    {
-        "id": 1
-        , "word": "Hund"
-        , "up": 2
-        , "down": 0
-        , "category": "animals"
-    }
-    
-    , {
-        "id": 2
-        , "word": "Katze"
-        , "up": 3
-        , "down": 0
-        , "category": "animals"
-    }
-    
-    , {
-        "id": 3
-        , "word": "Schaf"
-        , "up": 4
-        , "down": 0
-        , "category": "animals"
-    }
-    
-    , {
-        "id": 4
-        , "word": "Superman"
-        , "up": 2
-        , "down": 0
-        , "category": "comic"
-    }
+  {
+    "id": 1,
+    "word": "Hund",
+    "up": 2,
+    "down": 0,
+    "category": "animals"
+  },
+  {
+    "id": 2,
+    "word": "Katze",
+    "up": 3,
+    "down": 0,
+    "category": "animals"
+  },
+  {
+    "id": 3,
+    "word": "Schaf",
+    "up": 4,
+    "down": 0,
+    "category": "animals"
+  },
+  {
+    "id": 4,
+    "word": "Superman",
+    "up": 2,
+    "down": 0,
+    "category": "comic"
+  }
 ]

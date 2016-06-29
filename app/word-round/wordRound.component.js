@@ -1,8 +1,6 @@
 'use strict';
 
-angular.
-module('wordRound').
-component('wordRound', {
+angular.module('wordRound').component('wordRound', {
     templateUrl: 'word-round/wordRound.template.html',
 
     /**
