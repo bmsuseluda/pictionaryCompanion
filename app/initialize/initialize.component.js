@@ -8,7 +8,7 @@ angular.module('initialize').component('initialize', {
      * @param $http
      * @param $q
      */
-    controller: function initializeController($http, $q) {
+    controller: function InitializeController($http, $q) {
         var controlScope = this;
         var statics = {
             wordsPlayed: "wordsPlayed",
