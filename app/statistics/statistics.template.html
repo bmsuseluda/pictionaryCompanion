@@ -1,39 +1,37 @@
-<div class="col-sm-3">
-    <h3>statistics
-        <button class="btn btn-success btn-sm" id="refresh" ng-click="$ctrl.initControlScope()">
-            <span class="glyphicon glyphicon-refresh"></span>
-        </button>
-    </h3>
+<h3>statistics
+    <button class="btn btn-success btn-sm" id="refresh" ng-click="$ctrl.initControlScope()">
+        <span class="glyphicon glyphicon-refresh"></span>
+    </button>
+</h3>
 
-    <table class="table">
-        <tr>
-            <th>id</th>
-            <th>Words played</th>
-            <th>category</th>
-        </tr>
+<table class="table">
+    <tr>
+        <th>id</th>
+        <th>Words played</th>
+        <th>category</th>
+    </tr>
 
-        <tr ng-repeat="wordPlayed in $ctrl.wordsPlayed">
-            <td>{{wordPlayed.id}}</td>
-            <td>{{wordPlayed.word}}</td>
-            <td>{{wordPlayed.category}}</td>
-        </tr>
-    </table>
+    <tr ng-repeat="wordPlayed in $ctrl.wordsPlayed">
+        <td>{{wordPlayed.id}}</td>
+        <td>{{wordPlayed.word}}</td>
+        <td>{{wordPlayed.category}}</td>
+    </tr>
+</table>
 
-    <div class="text-left">
-        unplayed words <span class="badge">{{$ctrl.wordsUnplayed.length}}</span>
-    </div>
-
-    <table class="table">
-        <tr>
-            <th>id</th>
-            <th>Words unplayed</th>
-            <th>category</th>
-        </tr>
-
-        <tr ng-repeat="wordUnplayed in $ctrl.wordsUnplayed">
-            <td>{{wordUnplayed.id}}</td>
-            <td>{{wordUnplayed.word}}</td>
-            <td>{{wordUnplayed.category}}</td>
-        </tr>
-    </table>
+<div class="text-left">
+    unplayed words <span class="badge">{{$ctrl.wordsUnplayed.length}}</span>
 </div>
+
+<table class="table">
+    <tr>
+        <th>id</th>
+        <th>Words unplayed</th>
+        <th>category</th>
+    </tr>
+
+    <tr ng-repeat="wordUnplayed in $ctrl.wordsUnplayed">
+        <td>{{wordUnplayed.id}}</td>
+        <td>{{wordUnplayed.word}}</td>
+        <td>{{wordUnplayed.category}}</td>
+    </tr>
+</table>

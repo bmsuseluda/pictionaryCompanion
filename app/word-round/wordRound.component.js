@@ -5,11 +5,8 @@ angular.module('wordRound').component('wordRound', {
 
     /**
      * Controller for a round in a pictionary game.
-     *
-     * @param $http
-     * @param $q
      */
-    controller: function WordRoundController($http, $q) {
+    controller: function WordRoundController() {
         var controlScope = this;
         var statics = {
             wordsPlayed: "wordsPlayed",

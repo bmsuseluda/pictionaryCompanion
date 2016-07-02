@@ -7,7 +7,7 @@ describe('wordRound', function () {
     describe('WordRoundController', function () {
         var ctrl;
 
-        beforeEach(inject(function ($componentController, _$httpBackend_, _$q_) {
+        beforeEach(inject(function ($componentController) {
 
             var words = [{
                 id: 1
@@ -38,7 +38,7 @@ describe('wordRound', function () {
         });
 
         it('should be the word hund', function () {
-            expect(ctrl.word.word).toBe('Hund');
+            expect(ctrl.word.word).toEqual('Hund');
         });
 
         it('should be 2 played words', function () {

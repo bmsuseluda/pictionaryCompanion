@@ -6,7 +6,7 @@ angular.module('statistics').component('statistics', {
     /**
      * Controller for statistics of all players pictionary games for a user.
      */
-    controller: function statisticsController() {
+    controller: function StatisticsController() {
         var controlScope = this;
         var statics = {
             wordsPlayed: "wordsPlayed",
