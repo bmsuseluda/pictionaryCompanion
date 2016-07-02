@@ -15,36 +15,6 @@ angular.module('wordRound').component('wordRound', {
             wordsPlayed: "wordsPlayed",
             words: "words"
         };
-        
-        /**
-         * Initialize the localStorage with the data from parameter words<br>
-         * Writes the wordlist, playedWords and roundstatistics in the local storage.
-         *
-         * @param words
-         */
-        this.initLocalStorage = function (words) {
-
-            localStorage.setItem(statics.words, JSON.stringify(words));
-
-            if (localStorage.getItem(statics.wordsPlayed) === null) {
-                localStorage.setItem(statics.wordsPlayed, JSON.stringify([]));
-            }
-        };
-
-        /**
-         * Initialize the controllerScope with unplayed and played words.
-         */
-        this.initControlScope = function () {
-
-            var words = JSON.parse(localStorage.getItem(statics.words));
-            var wordsPlayedIDs = JSON.parse(localStorage.getItem(statics.wordsPlayed));
-
-            var wordsPlayed = controlScope.initWordsPlayed(words, wordsPlayedIDs);
-            controlScope.wordsPlayed = wordsPlayed;
-            controlScope.wordsUnplayed = controlScope.initWordsUnplayed(words, wordsPlayed);
-
-            controlScope.getNewWord(controlScope);
-        };
 
         /**
          * Adds the actual played word to the local storage.
@@ -149,23 +119,20 @@ angular.module('wordRound').component('wordRound', {
         };
 
         /**
-         * Reads the word-list and user-data from JSON and starts initialisation of the controllerScope.
-         *
-         * @param $http
-         * @param $q
+         * Initialize the controllerScope with unplayed and played words.
          */
-        this.readJSONFilesAndStartInit = function ($http, $q) {
-            var promises = [];
-            promises.push($http.get('wordsData/words-german.json'));
+        this.initControlScope = function () {
 
-            $q.all(promises).then(function (results) {
-                var words = results[0].data;
+            var words = JSON.parse(localStorage.getItem(statics.words));
+            var wordsPlayedIDs = JSON.parse(localStorage.getItem(statics.wordsPlayed));
 
-                controlScope.initLocalStorage(words);
-                controlScope.initControlScope();
-            });
+            var wordsPlayed = controlScope.initWordsPlayed(words, wordsPlayedIDs);
+            controlScope.wordsPlayed = wordsPlayed;
+            controlScope.wordsUnplayed = controlScope.initWordsUnplayed(words, wordsPlayed);
+
+            controlScope.getNewWord(controlScope);
         };
 
-        this.readJSONFilesAndStartInit($http, $q);
+        this.initControlScope();
     }
 });

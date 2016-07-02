@@ -27,19 +27,11 @@ describe('wordRound', function () {
                 id: 1
             }];
 
+            localStorage.setItem("words", JSON.stringify(words));
             localStorage.setItem("wordsPlayed", JSON.stringify(wordsPlayedIDs));
 
             ctrl = $componentController('wordRound');
-
-            spyOn(ctrl, 'readJSONFilesAndStartInit').and.stub();
-
-            ctrl.initLocalStorage(words);
-            ctrl.initControlScope(ctrl);
         }));
-
-        it('should be 3 words in local storage', function () {
-            expect(JSON.parse(localStorage.getItem("words")).length).toBe(3);
-        });
 
         it('should be just 1 unplayed word', function () {
             expect(ctrl.wordsUnplayed.length).toBe(1);
