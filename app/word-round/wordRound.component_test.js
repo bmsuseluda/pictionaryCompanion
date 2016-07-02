@@ -27,10 +27,14 @@ describe('wordRound', function () {
                 id: 1
             }];
 
+            localStorage.setItem("words", JSON.stringify(words));
+            localStorage.setItem("wordsPlayed", JSON.stringify(wordsPlayedIDs));
+
             ctrl = $componentController('wordRound');
+            
             spyOn(ctrl, 'readJSONFilesAndStartInit').and.stub();
 
-            ctrl.initControlScope(ctrl, words, wordsPlayedIDs);
+            ctrl.initControlScope(ctrl);
         }));
 
         it('should be just 1 unplayed word', function () {

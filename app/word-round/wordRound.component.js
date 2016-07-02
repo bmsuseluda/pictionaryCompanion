@@ -13,6 +13,21 @@ angular.module('wordRound').component('wordRound', {
         var controlScope = this;
 
         /**
+         * Initialize the localStorage with the data from the controlScope.<br>
+         * Writes the wordlist, playedWords and roundstatistics in the local storage.
+         *
+         * @param controlScope
+         */
+        this.initLocalStorage = function (words) {
+
+            localStorage.setItem("words", JSON.stringify(words));
+
+            if (localStorage.getItem("wordsPlayed") === null) {
+                localStorage.setItem("wordsPlayed", JSON.stringify([]));
+            }
+        };
+
+        /**
          * Reads the word-list and user-data from JSON and starts initialisation of the controllerScope.
          *
          * @param $http
@@ -22,13 +37,12 @@ angular.module('wordRound').component('wordRound', {
         this.readJSONFilesAndStartInit = function ($http, $q, controlScope) {
             var promises = [];
             promises.push($http.get('wordsData/words-german.json'));
-            promises.push($http.get('userData/user-wordsPlayed.json'));
 
             $q.all(promises).then(function (results) {
                 var words = results[0].data;
-                var wordsPlayedIDs = results[1].data;
 
-                controlScope.initControlScope(controlScope, words, wordsPlayedIDs);
+                controlScope.initLocalStorage(words);
+                controlScope.initControlScope(controlScope);
             });
         };
 
@@ -38,15 +52,39 @@ angular.module('wordRound').component('wordRound', {
          * Initialize the controllerScope with unplayed and played words.
          *
          * @param controlScope
-         * @param words
-         * @param wordsPlayedIDs
          */
-        this.initControlScope = function (controlScope, words, wordsPlayedIDs) {
+        this.initControlScope = function (controlScope) {
+
+            var words = JSON.parse(localStorage.getItem("words"));
+            var wordsPlayedIDs = JSON.parse(localStorage.getItem("wordsPlayed"));
+
             var wordsPlayed = controlScope.initWordsPlayed(words, wordsPlayedIDs);
             controlScope.wordsPlayed = wordsPlayed;
             controlScope.wordsUnplayed = controlScope.initWordsUnplayed(words, wordsPlayed);
 
             controlScope.getNewWord(controlScope);
+        };
+
+        /**
+         * Adds the actual played word to the local storage.
+         *
+         * @param actualWord
+         */
+        this.addNewPlayedWordToLocalStorage = function (actualWord) {
+
+            var wordsPlayed = JSON.parse(localStorage.getItem("wordsPlayed"));
+            wordsPlayed.push(actualWord);
+            localStorage.setItem("wordsPlayed", JSON.stringify(wordsPlayed))
+        };
+
+        /**
+         * Resets the words played in the local storage.
+         */
+        this.resetPlayedWords = function (controlScope) {
+
+            localStorage.setItem("wordsPlayed", JSON.stringify([]));
+
+            controlScope.initControlScope(controlScope);
         };
 
         /**
@@ -63,6 +101,7 @@ angular.module('wordRound').component('wordRound', {
                 var actualWord = wordsUnplayed[0];
                 controlScope.word = actualWord;
                 controlScope.wordsPlayed.push(actualWord);
+                controlScope.addNewPlayedWordToLocalStorage(actualWord);
 
                 wordsUnplayed.splice(wordsUnplayed.indexOf(actualWord), 1);
                 controlScope.wordsUnplayed = wordsUnplayed;
@@ -70,7 +109,8 @@ angular.module('wordRound').component('wordRound', {
         };
 
         /**
-         * Initialize played words.
+         * Initialize played words.<br>
+         * Reads the metadata for a wordID from the wordlist.
          *
          * @param words
          * @param wordsPlayedIDs
