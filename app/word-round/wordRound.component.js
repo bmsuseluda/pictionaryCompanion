@@ -11,52 +11,33 @@ angular.module('wordRound').component('wordRound', {
      */
     controller: function WordRoundController($http, $q) {
         var controlScope = this;
-
+        var statics = {
+            wordsPlayed: "wordsPlayed",
+            words: "words"
+        };
+        
         /**
-         * Initialize the localStorage with the data from the controlScope.<br>
+         * Initialize the localStorage with the data from parameter words<br>
          * Writes the wordlist, playedWords and roundstatistics in the local storage.
          *
-         * @param controlScope
+         * @param words
          */
         this.initLocalStorage = function (words) {
 
-            localStorage.setItem("words", JSON.stringify(words));
+            localStorage.setItem(statics.words, JSON.stringify(words));
 
-            if (localStorage.getItem("wordsPlayed") === null) {
-                localStorage.setItem("wordsPlayed", JSON.stringify([]));
+            if (localStorage.getItem(statics.wordsPlayed) === null) {
+                localStorage.setItem(statics.wordsPlayed, JSON.stringify([]));
             }
         };
 
         /**
-         * Reads the word-list and user-data from JSON and starts initialisation of the controllerScope.
-         *
-         * @param $http
-         * @param $q
-         * @param controlScope
-         */
-        this.readJSONFilesAndStartInit = function ($http, $q, controlScope) {
-            var promises = [];
-            promises.push($http.get('wordsData/words-german.json'));
-
-            $q.all(promises).then(function (results) {
-                var words = results[0].data;
-
-                controlScope.initLocalStorage(words);
-                controlScope.initControlScope(controlScope);
-            });
-        };
-
-        this.readJSONFilesAndStartInit($http, $q, controlScope);
-
-        /**
          * Initialize the controllerScope with unplayed and played words.
-         *
-         * @param controlScope
          */
-        this.initControlScope = function (controlScope) {
+        this.initControlScope = function () {
 
-            var words = JSON.parse(localStorage.getItem("words"));
-            var wordsPlayedIDs = JSON.parse(localStorage.getItem("wordsPlayed"));
+            var words = JSON.parse(localStorage.getItem(statics.words));
+            var wordsPlayedIDs = JSON.parse(localStorage.getItem(statics.wordsPlayed));
 
             var wordsPlayed = controlScope.initWordsPlayed(words, wordsPlayedIDs);
             controlScope.wordsPlayed = wordsPlayed;
@@ -72,27 +53,25 @@ angular.module('wordRound').component('wordRound', {
          */
         this.addNewPlayedWordToLocalStorage = function (actualWord) {
 
-            var wordsPlayed = JSON.parse(localStorage.getItem("wordsPlayed"));
+            var wordsPlayed = JSON.parse(localStorage.getItem(statics.wordsPlayed));
             wordsPlayed.push(actualWord);
-            localStorage.setItem("wordsPlayed", JSON.stringify(wordsPlayed))
+            localStorage.setItem(statics.wordsPlayed, JSON.stringify(wordsPlayed))
         };
 
         /**
          * Resets the words played in the local storage.
          */
-        this.resetPlayedWords = function (controlScope) {
+        this.resetPlayedWords = function () {
 
-            localStorage.setItem("wordsPlayed", JSON.stringify([]));
+            localStorage.setItem(statics.wordsPlayed, JSON.stringify([]));
 
             controlScope.initControlScope(controlScope);
         };
 
         /**
          * Sets new word from unplayed words in controllerScope. Updates the played and unplayed words.
-         *
-         * @param controlScope
          */
-        this.getNewWord = function (controlScope) {
+        this.getNewWord = function () {
 
             var wordsUnplayed = controlScope.wordsUnplayed;
 
@@ -168,5 +147,25 @@ angular.module('wordRound').component('wordRound', {
                 }
             }
         };
+
+        /**
+         * Reads the word-list and user-data from JSON and starts initialisation of the controllerScope.
+         *
+         * @param $http
+         * @param $q
+         */
+        this.readJSONFilesAndStartInit = function ($http, $q) {
+            var promises = [];
+            promises.push($http.get('wordsData/words-german.json'));
+
+            $q.all(promises).then(function (results) {
+                var words = results[0].data;
+
+                controlScope.initLocalStorage(words);
+                controlScope.initControlScope();
+            });
+        };
+
+        this.readJSONFilesAndStartInit($http, $q);
     }
 });
