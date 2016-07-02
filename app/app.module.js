@@ -3,5 +3,6 @@
 angular.module('pictionary-companion', [
     'initialize',
     'wordRound',
-    'statistics'
+    'statistics',
+    'addWord'
 ]);

@@ -25,7 +25,7 @@ describe('initialize', function () {
             id: 1
         }];
 
-        beforeEach(inject(function ($componentController, _$httpBackend_, _$q_) {
+        beforeEach(inject(function ($componentController) {
 
             localStorage.setItem("wordsPlayed", JSON.stringify(wordsPlayedIDs));
 
