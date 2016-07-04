@@ -2,7 +2,7 @@
   "name": "pictionary-companion",
   "private": false,
   "version": "0.0.1",
-  "license": "GPLv3",
+  "license": "GPL-3.0",
   "description": "CompanionApp for your pictionary sessions",
   "repository": "https://github.com/bmsuseluda/pictionaryCompanion",
   "devDependencies": {
@@ -13,6 +13,7 @@
     "karma": "^1.1.0",
     "karma-chrome-launcher": "^1.0.1",
     "karma-firefox-launcher": "^1.0.0",
+    "karma-ie-launcher": "^1.0.0",
     "karma-jasmine": "^1.0.2",
     "protractor": "^3.3.0"
   },
