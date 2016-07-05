@@ -6,7 +6,7 @@ angular.module('statistics').component('statistics', {
     /**
      * Controller for statistics of all players pictionary games for a user.
      */
-    controller: function StatisticsController() {
+    controller: ['Initialize', function StatisticsController(Initialize) {
         var controlScope = this;
         var statics = {
             wordsPlayed: "wordsPlayed",
@@ -79,6 +79,8 @@ angular.module('statistics').component('statistics', {
          */
         this.initControlScope = function () {
 
+            console.log('statistics.controlScope');
+
             var words = JSON.parse(localStorage.getItem(statics.words));
             var wordsPlayedIDs = JSON.parse(localStorage.getItem(statics.wordsPlayed));
 
@@ -87,6 +89,18 @@ angular.module('statistics').component('statistics', {
             controlScope.wordsUnplayed = controlScope.initWordsUnplayed(words, wordsPlayed);
         };
 
-        this.initControlScope(controlScope);
-    }
+        /**
+         * Calls the initialize service.
+         */
+        this.callInitialize = function () {
+
+            Initialize.getWords(function (wordsResponse) {
+                console.log('statistics aufruf: ' + wordsResponse.data);
+                Initialize.initLocalStorage(wordsResponse.data);
+                controlScope.initControlScope();
+            });
+        };
+
+        this.callInitialize();
+    }]
 });

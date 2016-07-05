@@ -31,6 +31,9 @@ describe('wordRound', function () {
             localStorage.setItem("wordsPlayed", JSON.stringify(wordsPlayedIDs));
 
             ctrl = $componentController('wordRound');
+            spyOn(ctrl, 'callInitialize').and.stub();
+
+            ctrl.initControlScope();
         }));
 
         it('should be just 1 unplayed word', function () {

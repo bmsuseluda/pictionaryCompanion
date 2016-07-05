@@ -1,3 +1,5 @@
 'use strict';
 
-angular.module('statistics', []);
+angular.module('statistics', [
+    'initialize'
+]);

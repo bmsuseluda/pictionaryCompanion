@@ -6,7 +6,7 @@ angular.module('wordRound').component('wordRound', {
     /**
      * Controller for a round in a pictionary game.
      */
-    controller: function WordRoundController() {
+    controller: ['Initialize', function WordRoundController(Initialize) {
         var controlScope = this;
         var statics = {
             wordsPlayed: "wordsPlayed",
@@ -120,6 +120,8 @@ angular.module('wordRound').component('wordRound', {
          */
         this.initControlScope = function () {
 
+            console.log('wordRound.controlScope');
+
             var words = JSON.parse(localStorage.getItem(statics.words));
             var wordsPlayedIDs = JSON.parse(localStorage.getItem(statics.wordsPlayed));
 
@@ -130,6 +132,18 @@ angular.module('wordRound').component('wordRound', {
             controlScope.getNewWord(controlScope);
         };
 
-        this.initControlScope();
-    }
+        /**
+         * Calls the initialize service.
+         */
+        this.callInitialize = function () {
+
+            Initialize.getWords(function (wordsResponse) {
+                console.log('wordRound aufruf: ' + wordsResponse.data);
+                Initialize.initLocalStorage(wordsResponse.data);
+                controlScope.initControlScope();
+            });
+        };
+
+        this.callInitialize();
+    }]
 });

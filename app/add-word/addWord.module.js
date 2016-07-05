@@ -1,3 +1,5 @@
 'use strict';
 
-angular.module('addWord', []);
+angular.module('addWord', [
+    'initialize'
+]);

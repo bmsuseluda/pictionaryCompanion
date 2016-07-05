@@ -4,8 +4,7 @@ describe('initialize', function () {
 
     beforeEach(module('initialize'));
 
-    describe('initializeController', function () {
-        var ctrl;
+    describe('Initialize', function () {
 
         var words = [{
             id: 1
@@ -25,13 +24,11 @@ describe('initialize', function () {
             id: 1
         }];
 
-        beforeEach(inject(function ($componentController) {
+        beforeEach(inject(function (Initialize) {
 
             localStorage.setItem("wordsPlayed", JSON.stringify(wordsPlayedIDs));
 
-            ctrl = $componentController('initialize');
-            spyOn(ctrl, 'readJSONFilesAndStartInit').and.stub();
-            ctrl.initLocalStorage(words);
+            Initialize.initLocalStorage(words);
         }));
 
         it('should be 3 words in local storage', function () {
