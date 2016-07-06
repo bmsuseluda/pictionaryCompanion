@@ -79,8 +79,6 @@ angular.module('statistics').component('statistics', {
          */
         this.initControlScope = function () {
 
-            console.log('statistics.controlScope');
-
             var words = JSON.parse(localStorage.getItem(statics.words));
             var wordsPlayedIDs = JSON.parse(localStorage.getItem(statics.wordsPlayed));
 
@@ -95,7 +93,6 @@ angular.module('statistics').component('statistics', {
         this.callInitialize = function () {
 
             Initialize.getWords(function (wordsResponse) {
-                console.log('statistics aufruf: ' + wordsResponse.data);
                 Initialize.initLocalStorage(wordsResponse.data);
                 controlScope.initControlScope();
             });

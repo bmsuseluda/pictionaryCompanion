@@ -8,8 +8,6 @@ angular.module('initialize').factory('Initialize', ['$http',
             words: "words"
         };
 
-        console.log("initialize");
-
         return {
             /**
              * Reads the wordlist from json.
@@ -28,13 +26,20 @@ angular.module('initialize').factory('Initialize', ['$http',
              */
             initLocalStorage: function (words) {
 
-                console.log('initialize.controlScope');
-
                 localStorage.setItem(statics.words, JSON.stringify(words));
 
                 if (localStorage.getItem(statics.wordsPlayed) === null) {
                     localStorage.setItem(statics.wordsPlayed, JSON.stringify([]));
                 }
+            },
+
+            /**
+             * Adds a new word to local storage and server.
+             *
+             * @param word
+             */
+            addWord: function (word) {
+
             }
         };
     }]

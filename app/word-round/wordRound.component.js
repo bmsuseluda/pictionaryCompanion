@@ -120,8 +120,6 @@ angular.module('wordRound').component('wordRound', {
          */
         this.initControlScope = function () {
 
-            console.log('wordRound.controlScope');
-
             var words = JSON.parse(localStorage.getItem(statics.words));
             var wordsPlayedIDs = JSON.parse(localStorage.getItem(statics.wordsPlayed));
 
@@ -138,7 +136,6 @@ angular.module('wordRound').component('wordRound', {
         this.callInitialize = function () {
 
             Initialize.getWords(function (wordsResponse) {
-                console.log('wordRound aufruf: ' + wordsResponse.data);
                 Initialize.initLocalStorage(wordsResponse.data);
                 controlScope.initControlScope();
             });
