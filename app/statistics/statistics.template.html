@@ -6,13 +6,11 @@
 
 <table class="table">
     <tr>
-        <th>id</th>
         <th>Words played</th>
         <th>category</th>
     </tr>
 
     <tr ng-repeat="wordPlayed in $ctrl.wordsPlayed">
-        <td>{{wordPlayed.id}}</td>
         <td>{{wordPlayed.word}}</td>
         <td>{{wordPlayed.category}}</td>
     </tr>
@@ -24,13 +22,11 @@
 
 <table class="table">
     <tr>
-        <th>id</th>
         <th>Words unplayed</th>
         <th>category</th>
     </tr>
 
     <tr ng-repeat="wordUnplayed in $ctrl.wordsUnplayed">
-        <td>{{wordUnplayed.id}}</td>
         <td>{{wordUnplayed.word}}</td>
         <td>{{wordUnplayed.category}}</td>
     </tr>

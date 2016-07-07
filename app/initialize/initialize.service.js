@@ -3,9 +3,46 @@
 angular.module('initialize').factory('Initialize', ['$http',
     function ($http) {
 
+        var ctrl = this;
+
         var statics = {
             wordsPlayed: "wordsPlayed",
             words: "words"
+        };
+
+        this.isEmpty = function (object) {
+
+            if (object === null || object === '') {
+                return true;
+            } else {
+                return false;
+            }
+        };
+
+        this.isWordEmpty = function (word) {
+
+            if (ctrl.isEmpty(word) || ctrl.isEmpty(word.word) || ctrl.isEmpty(word.category)) {
+                return true;
+            } else {
+                return false;
+            }
+        };
+
+        /**
+         * Proves if the word is new.
+         *
+         * @param word
+         * @return {boolean}
+         */
+        this.isWordNew = function (word) {
+            var words = JSON.parse(localStorage.getItem(statics.words));
+
+            for (var i = 0; i < words.length; i++) {
+                if (word.word === words[i].word) {
+                    return false;
+                }
+            }
+            return true;
         };
 
         return {
@@ -38,8 +75,12 @@ angular.module('initialize').factory('Initialize', ['$http',
              *
              * @param word
              */
-            addWord: function (word) {
-
+            addNewWord: function (word) {
+                if (!ctrl.isWordEmpty(word) && ctrl.isWordNew(word)) {
+                    var words = JSON.parse(localStorage.getItem(statics.words));
+                    words.push({"word": word.word, "category": word.category});
+                    localStorage.setItem(statics.words, JSON.stringify(words));
+                }
             }
         };
     }]

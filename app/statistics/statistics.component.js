@@ -14,28 +14,6 @@ angular.module('statistics').component('statistics', {
         };
 
         /**
-         * Initialize played words.<br>
-         * Reads the metadata for a wordID from the wordlist.
-         *
-         * @param words
-         * @param wordsPlayedIDs
-         * @returns {Array} played words
-         */
-        this.initWordsPlayed = function (words, wordsPlayedIDs) {
-            var wordsPlayed = [];
-
-            if (wordsPlayedIDs !== null && wordsPlayedIDs.length > 0) {
-                for (var i = 0; i < words.length; i++) {
-                    var word = words[i];
-                    if (this.isWordPlayed(word.id, wordsPlayedIDs)) {
-                        wordsPlayed.push(word);
-                    }
-                }
-            }
-            return wordsPlayed;
-        };
-
-        /**
          * Initialize unplayed words.
          *
          * @param words
@@ -48,7 +26,7 @@ angular.module('statistics').component('statistics', {
             if (wordsPlayed !== null && wordsPlayed.length > 0) {
                 for (var i = 0; i < words.length; i++) {
                     var word = words[i];
-                    if (!this.isWordPlayed(word.id, wordsPlayed)) {
+                    if (!this.isWordPlayed(word, wordsPlayed)) {
                         wordsUnplayed.push(word);
                     }
                 }
@@ -62,16 +40,17 @@ angular.module('statistics').component('statistics', {
         /**
          * Proves if the word was all ready played.
          *
-         * @param id wordID to prove
+         * @param word to prove
          * @param wordsPlayed
          * @returns {boolean}
          */
-        this.isWordPlayed = function (id, wordsPlayed) {
+        this.isWordPlayed = function (word, wordsPlayed) {
             for (var i = 0; i < wordsPlayed.length; i++) {
-                if (id === wordsPlayed[i].id) {
+                if (word.word === wordsPlayed[i].word) {
                     return true;
                 }
             }
+            return false;
         };
 
         /**
@@ -80,9 +59,8 @@ angular.module('statistics').component('statistics', {
         this.initControlScope = function () {
 
             var words = JSON.parse(localStorage.getItem(statics.words));
-            var wordsPlayedIDs = JSON.parse(localStorage.getItem(statics.wordsPlayed));
+            var wordsPlayed = JSON.parse(localStorage.getItem(statics.wordsPlayed));
 
-            var wordsPlayed = controlScope.initWordsPlayed(words, wordsPlayedIDs);
             controlScope.wordsPlayed = wordsPlayed;
             controlScope.wordsUnplayed = controlScope.initWordsUnplayed(words, wordsPlayed);
         };

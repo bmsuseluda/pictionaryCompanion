@@ -8,27 +8,25 @@ describe('statistics', function () {
         var ctrl;
 
         var words = [{
-            id: 1
-            , word: "Katze"
+            word: "Katze"
             , category: "animals"
         }, {
-            id: 2
-            , word: "Hund"
+            word: "Hund"
             , category: "animals"
         }, {
-            id: 3
-            , word: "Superman"
+            word: "Superman"
             , category: "comics"
         }];
 
-        var wordsPlayedIDs = [{
-            id: 1
+        var wordsPlayed = [{
+            word: "Katze"
+            , category: "animals"
         }];
 
         beforeEach(inject(function ($componentController) {
 
             localStorage.setItem("words", JSON.stringify(words));
-            localStorage.setItem("wordsPlayed", JSON.stringify(wordsPlayedIDs));
+            localStorage.setItem("wordsPlayed", JSON.stringify(wordsPlayed));
 
             ctrl = $componentController('statistics');
             spyOn(ctrl, 'callInitialize').and.stub();
