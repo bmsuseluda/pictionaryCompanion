@@ -1,14 +1,14 @@
 # pictionaryCompanion
-CompanionApp for your pictionary sessions
+CompanionApp for your pictionary sessions.
 
-implemented features:
+<h3>Implemented features:</h3>
 - shows words you can draw with your friends
 - keeps in mind what words you already played
 - you can add new words to the local storage of your browser
 - works completly offline
 - statistics for your played words
 
-features in the future:
+<h3>Features in the future:</h3>
 - configurable timer with alert to end a round
 - round statistics
 - configurable teams
@@ -21,11 +21,11 @@ features in the future:
 - upload your settings and statistics to the server
 - gamification to compete with your friends
 
-Technical stuff:
+<h3>Technical stuff:</h3>
 - Frontend with Angular
 - Offline-Features with local storage
 
-Future plans:
+<h3>Future plans:</h3>
 - Java-Rest-Service to get new words
 - Java-Rest-Service to add new words
 - Offline-Features with service workers
