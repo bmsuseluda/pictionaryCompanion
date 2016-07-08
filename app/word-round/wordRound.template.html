@@ -1,5 +1,3 @@
-<button class="btn btn-danger btn-sm" id="reset" ng-click="$ctrl.resetPlayedWords()">reset played words</button>
-
 <div class="row">
     <div class="col-sm-12">
         <h1>Draw: <strong>{{$ctrl.word.word}}</strong></h1>
@@ -10,7 +8,11 @@
     <div class="col-sm-12">
         <button class="btn btn-primary btn-sm" id="getNewWord" ng-click="$ctrl.getNewWord()">next word
         </button>
-        <button class="btn btn-success btn-sm" id="success" ng-click="$ctrl.getNewWord()">success</button>
-        <button class="btn btn-danger btn-sm" id="failed" ng-click="$ctrl.getNewWord()">failed</button>
+        <button class="btn btn-success btn-sm" id="success" ng-click="$ctrl.getNewWord()">
+            <span class="glyphicon glyphicon-ok"></span>
+        </button>
+        <button class="btn btn-danger btn-sm" id="failed" ng-click="$ctrl.getNewWord()">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
     </div>
 </div>

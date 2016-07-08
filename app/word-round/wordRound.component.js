@@ -26,17 +26,6 @@ angular.module('wordRound').component('wordRound', {
         };
 
         /**
-         * Resets the words played in the local storage.
-         */
-        this.resetPlayedWords = function () {
-
-            localStorage.setItem(statics.wordsPlayed, JSON.stringify([]));
-
-            controlScope.initControlScope();
-            controlScope.getNewWord();
-        };
-
-        /**
          * Sets new word from unplayed words in controllerScope. Updates the played and unplayed words.
          */
         this.getNewWord = function () {

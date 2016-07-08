@@ -13,6 +13,17 @@ angular.module('statistics').component('statistics', {
             words: "words"
         };
 
+
+        /**
+         * Resets the words played in the local storage.
+         */
+        this.resetPlayedWords = function () {
+
+            localStorage.setItem(statics.wordsPlayed, JSON.stringify([]));
+
+            controlScope.initControlScope();
+        };
+
         /**
          * Initialize unplayed words.
          *

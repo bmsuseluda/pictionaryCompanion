@@ -42,5 +42,11 @@ describe('statistics', function () {
         it('should be 2 played words', function () {
             expect(ctrl.wordsPlayed.length).toBe(1);
         });
+
+        it('Reset: should be 1 played words', function () {
+            ctrl.resetPlayedWords(ctrl);
+            expect(ctrl.wordsPlayed.length).toBe(0);
+            expect(JSON.parse(localStorage.getItem("wordsPlayed")).length).toBe(0);
+        });
     });
 });

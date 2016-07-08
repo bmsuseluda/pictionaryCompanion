@@ -1,4 +1,4 @@
-<h3>statistics
+<h3>Statistics
     <button class="btn btn-success btn-sm" id="refresh" ng-click="$ctrl.initControlScope()">
         <span class="glyphicon glyphicon-refresh"></span>
     </button>
@@ -6,7 +6,10 @@
 
 <table class="table">
     <tr>
-        <th>Words played</th>
+        <th>Words played
+            <button class="btn btn-danger btn-sm" id="reset" ng-click="$ctrl.resetPlayedWords()"><span
+                    class="glyphicon glyphicon-remove"></span></button>
+        </th>
         <th>category</th>
     </tr>
 

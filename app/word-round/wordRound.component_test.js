@@ -47,12 +47,6 @@ describe('wordRound', function () {
             expect(ctrl.wordsPlayed.length).toBe(2);
         });
 
-        it('Reset: should be 1 played words', function () {
-            ctrl.resetPlayedWords(ctrl);
-            expect(ctrl.wordsPlayed.length).toBe(1);
-            expect(JSON.parse(localStorage.getItem("wordsPlayed")).length).toBe(1);
-        });
-
         it('isWordPlayed: should be equal', function () {
             var word = {
                 word: "Katze"
