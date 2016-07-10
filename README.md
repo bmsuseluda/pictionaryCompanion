@@ -22,10 +22,12 @@ CompanionApp for your pictionary sessions.
 - gamification to compete with your friends
 
 <h3>Technical stuff:</h3>
-- Frontend with Angular
+- Frontend with Angular and Bootstrap
 - Offline-Features with local storage
+- responsive
 
 <h3>Future plans:</h3>
+- Selenium-Tests
 - Java-Rest-Service to get new words
 - Java-Rest-Service to add new words
 - Offline-Features with service workers
